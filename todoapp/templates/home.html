@@ -64,6 +64,7 @@
                         </div>
                         <div>
                             <a class="hover:bg-indigo-600 hover:text-white p-2 rounded bg-indigo-400" href="{% url 'delete' todo.id %}">❌</a>
+                            <a class="hover:bg-indigo-600 hover:text-white p-2 rounded bg-indigo-400" href="{% url 'uncross' todo.id %}">↩</a>
                         </div>
                     </div>
                     {% endif %} 

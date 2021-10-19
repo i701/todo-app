@@ -41,3 +41,10 @@ def cross_off(request, list_id):
     item.save()
     messages.success(request, ('Item successfully checked off!'))
     return redirect('home')
+
+def uncross(request, list_id):
+    item = List.objects.get(id=list_id)
+    item.completed = False
+    item.save()
+    messages.success(request, ('Item successfully unchecked off!'))
+    return redirect('home')
