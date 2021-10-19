@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo app</title>
+        <link
+            href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="bg-gray-100">
+        <!-- component -->
+        <style>
+            body {
+                font-family: "Fira Code", sans-serif;
+            }
+        </style>
+
+        <div class="flex px-5 py-5">
+            <div class="w-full max-w-md mx-auto">
+                <div class="flex justify-center items-center">
+                    <div class="">
+                        <h1 class="font-bold text-2xl">Todo app</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="w-full max-w-md mx-auto py-5 px-5">
+            {% block content %} {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,93 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="rounded p-2 bg-indigo-200">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="flex justify-between">
+            <input
+                type="text"
+                placeholder="Enter your todo"
+                class="p-2 rounded"
+                name="item"
+            />
+            <button type="submit" name="add" class="hover:bg-indigo-600 hover:text-white rounded p-2 bg-indigo-400" >Add</button>
+        </div>
+    </form>
+</div>
+
+{% if messages %} 
+    {% for message in messages %}
+        <div class="py-4" id="alertbox">
+            <div class="container bg-yellow-100 flex items-center text-sm px-4 py-3 relative rounded"
+                role="alert">
+                <p>{{message}}</p>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3 closealertbutton">
+                    <svg class="fill-current h-6 w-6" role="button" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20">
+                        <title>Close</title>
+                        <path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                </span>
+            </div>
+        </div>
+        
+    {% endfor %} 
+{% endif %}
+
+<div class="bg-indigo-100 p-2 rounded my-2">
+    <div class="flex flex-col">
+        {% if todos %}
+            <div class='bg-purple-50 rounded p-2'>
+                Pending ⌛
+                {% for todo in todos %}
+                    {% if not todo.completed %}
+                    <div class="rounded bg-green-300 flex items-center justify-between m-2 p-4">
+                        <div class="flex justify-center items-center">
+                            <div class="ml-2 ">{{todo}}</div>
+                        </div>
+                        <div>
+                            <a class="hover:bg-indigo-600 hover:text-white p-2 rounded bg-indigo-400" href="{% url 'cross_off' todo.id %}">✅</a>
+                        </div>
+                    </div>
+                    {% endif %} 
+                {% endfor %}
+            </div>
+            <div class='bg-purple-50 rounded p-2 mt-2'>
+                Completed ✅
+                {% for todo in todos %}
+                    {% if todo.completed %}
+                    <div class="rounded bg-green-300 flex items-center justify-between m-2 p-4">
+                        <div class="flex justify-center items-center">
+                            <div class="ml-2 line-through">{{todo}}</div>
+                            
+                        </div>
+                        <div>
+                            <a class="hover:bg-indigo-600 hover:text-white p-2 rounded bg-indigo-400" href="{% url 'delete' todo.id %}">❌</a>
+                        </div>
+                    </div>
+                    {% endif %} 
+
+                {% endfor %}
+            </div>
+        {% elif todos.count == 0 %}
+            <div class="flex justify-center items-center">
+                <div class="ml-2">Looks like you are free!</div>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+crossorigin="anonymous"
+></script>
+<script>
+    $(".closealertbutton").click(function (e) {
+        pid = $(this).parent().parent().hide(500);
+    });
+</script>
+
+{% endblock %}
